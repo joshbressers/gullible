@@ -1,0 +1,4 @@
+The initial idea and method for using gdb in this manner came from Jonathan
+Foote (jmfoote at cert dot org) in CERT's exploitable gdb plugin.
+
+No exploitable source code has been used in this project.
