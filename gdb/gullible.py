@@ -1,4 +1,4 @@
-# Copyright 2012 Josh Bressers <josh@bress.net>
+# Copyright 2012 Josh Bressers <bressers@redhat.com>
 #
 # This file is part of gullible.
 # 
@@ -16,7 +16,7 @@
 # along with gullible.  If not, see <http://www.gnu.org/licenses/>.
 
 import gdb
-import gullible
+import gullible.gdb
 
 class Gullible(gdb.Command):
     "Analyze a crash to determine exploitability."
@@ -27,6 +27,7 @@ class Gullible(gdb.Command):
 
     def invoke(self, arg, from_tty):
         "Called when the command is invoked from GDB."
-        pass
+
+        gullible.gdb.score(gdb)
 
 Gullible()

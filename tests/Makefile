@@ -1,4 +1,4 @@
-# Copyright 2012 Josh Bressers <josh@bress.net>
+# Copyright 2012 Josh Bressers <bressers@redhat.com>
 #
 # This file is part of gullible.
 # 

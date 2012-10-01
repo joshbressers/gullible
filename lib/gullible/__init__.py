@@ -1,4 +1,4 @@
-# Copyright 2012 Josh Bressers <josh@bress.net>
+# Copyright 2012 Josh Bressers <bressers@redhat.com>
 #
 # This file is part of gullible.
 # 
@@ -15,12 +15,3 @@
 # You should have received a copy of the GNU General Public License
 # along with gullible.  If not, see <http://www.gnu.org/licenses/>.
 
-"""
-Gullible class for use with the GDB gullible plugin.
-"""
-
-class Gullible:
-    "Class for interacting with the gullible framework."
-
-    def __init__(self):
-        pass
