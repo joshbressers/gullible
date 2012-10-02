@@ -28,6 +28,8 @@ class Gullible(gdb.Command):
     def invoke(self, arg, from_tty):
         "Called when the command is invoked from GDB."
 
+        if arg == "debug":
+            import pdb; pdb.set_trace()
         gullible.gdb.score(gdb)
 
 Gullible()

@@ -17,7 +17,7 @@
 
 CFLAGS=-g
 
-TESTS=testDivideByZero testReadNull testStackRecursion testReadRandom testSignalAbort testSignalIll testWriteRandom testExecuteInvalid testStackOverflow
+TESTS=testDivideByZero testReadNull testStackRecursion testReadRandom testSignalAbort testSignalIll testWriteRandom testExecuteInvalid testStackOverflow testFloatingPointException
 
 all: $(TESTS)
 

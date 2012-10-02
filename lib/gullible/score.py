@@ -20,13 +20,20 @@
 class Score:
     "Class to score our crash"
 
-    scorables = [
-        # Signals we care about
-        'SIGSEGV',
-        'SIGABRT',
-        'SIGILL',
-        'SIGFPE'
-    ]
+    scorables = {
+        'signals' : [
+                        # Signals we care about
+                        'SIGSEGV',
+                        'SIGABRT',
+                        'SIGILL',
+                        'SIGFPE'
+                    ],
+
+        'instructions' : [
+                            # instructions (we just care about the names
+                            'div',
+                         ]
+    }
 
     def __init__(self, gdb):
         self.gdb = gdb
@@ -35,10 +42,7 @@ class Score:
 
     def add_item(self, item):
         "Add a 'score' item to the list"
-        if item in self.scorables:
-            self.score.append(item)
-        else:
-            raise Exception("%s not a valid scorable" % item)
+        self.score.append(item)
 
     def get_cause(self):
         "Return a object representation of the cause"
@@ -52,7 +56,12 @@ class Score:
 
         self.__cause = Unknown()
 
-        if FloatingPoint.score(self.score):
+        # These tests need to cascade from most complex to simplest. The
+        # first match wins
+
+        if DivideByZero.score(self.score):
+            self.__cause = DivideByZero()
+        elif FloatingPoint.score(self.score):
             self.__cause = FloatingPoint()
 
 class Unknown:
@@ -66,6 +75,23 @@ class Unknown:
     @staticmethod
     def score(scores):
         return True
+
+class DivideByZero:
+    "Class describing a divide by zero error"
+
+    def __init__(self):
+        self.name = "DivideByZero"
+        self.exploitable = "NotExploitable"
+        self.description = "A divide by zero error has occurred. These are generally not exploitable."
+
+    @staticmethod
+    def score(scores):
+        "Static method for computing the score for this test."
+
+        if ('SIGFPE' in scores) and ('div' in scores):
+            return True
+        else:
+            return False
 
 class FloatingPoint:
     "Class describing a floating point exception."

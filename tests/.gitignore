@@ -1,0 +1,10 @@
+testDivideByZero
+testExecuteInvalid
+testFloatingPointException
+testReadNull
+testReadRandom
+testSignalAbort
+testSignalIll
+testStackOverflow
+testStackRecursion
+testWriteRandom
