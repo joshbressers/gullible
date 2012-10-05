@@ -15,3 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with gullible.  If not, see <http://www.gnu.org/licenses/>.
 
+import gullible.gdbwrap
+import gullible.score
+import gullible.calculator
+
+def crash_analyze(the_gdb):
+    "Function to parse the data from gdb and determine what happened"
+
+    gdb_handle = gullible.gdbwrap.GDB(the_gdb)
+    the_score = gullible.score.Score(gdb_handle)
+    the_calculator = gullible.calculator.Calculator(gdb_handle, the_score)
+    print the_score.get_cause().name
+

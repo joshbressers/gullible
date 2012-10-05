@@ -16,7 +16,7 @@
 # along with gullible.  If not, see <http://www.gnu.org/licenses/>.
 
 import gdb
-import gullible.gdb
+import gullible
 
 class Gullible(gdb.Command):
     "Analyze a crash to determine exploitability."
@@ -30,6 +30,6 @@ class Gullible(gdb.Command):
 
         if arg == "debug":
             import pdb; pdb.set_trace()
-        gullible.gdb.score(gdb)
+        gullible.crash_analyze(gdb)
 
 Gullible()

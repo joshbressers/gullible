@@ -27,14 +27,6 @@ import gullible.score
 # http://stackoverflow.com/questions/2549939/get-signal-names-from-numbers-in-python
 signal_map = dict((k, v) for v, k in signal.__dict__.iteritems() if v.startswith('SIG'))
 
-def score(the_gdb):
-    "Function to parse the data from gdb and determine what happened"
-
-    gdb_handle = GDB(the_gdb)
-    the_score = gullible.score.Score(gdb_handle)
-    the_calculator = Calculator(gdb_handle, the_score)
-    print the_score.get_cause().name
-
 class GDB:
     "Class to make the python gdb object easier to use"
 
@@ -82,28 +74,3 @@ class Instructions:
 
         return self.instructions[self.current][2]
 
-
-class Calculator:
-    "Class to process the results of gdb and build the Score object"
-
-    def __init__(self, gdb, score):
-        self.gdb = gdb
-        self.score = score
-
-        self.__check_signal()
-        self.__check_opcode()
-
-    def __check_opcode(self):
-        "Check the current instruction"
-        instruction = self.gdb.get_instruction()
-
-        for i in self.score.scorables['instructions']:
-            if i in instruction:
-                self.score.add_item(i)
-
-    def __check_signal(self):
-        "Check the signal gdb returned"
-
-        signal = self.gdb.get_signal()
-        if signal in self.score.scorables['signals']:
-            self.score.add_item(signal)
