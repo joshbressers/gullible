@@ -7,7 +7,7 @@ The name Gullible is a play on words. Microsoft has a tool named
 !exploitable. Gullible is a synonym of exploitable in the right context.
 
 
-Our initial set of testing will use the list Apple included in tehir
+Our initial set of testing will use the list Apple included in their
 CrashWrangler announcement:
 
 Exploitable if:
