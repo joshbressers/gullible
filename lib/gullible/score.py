@@ -58,6 +58,9 @@ class Score:
 
         # These tests need to cascade from most complex to simplest. The
         # first match wins
+        #
+        # Long term we want this to work so multiple tests can match, but
+        # one may have a better match
 
         if DivideByZero.score(self.score):
             self.__cause = DivideByZero()
