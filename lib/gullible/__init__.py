@@ -25,5 +25,5 @@ def crash_analyze(the_gdb):
     gdb_handle = gullible.gdbwrap.GDB(the_gdb)
     the_score = gullible.score.Score(gdb_handle)
     the_calculator = gullible.calculator.Calculator(gdb_handle, the_score)
-    print the_score.get_cause().name
+    print the_score.pretty_print()
 

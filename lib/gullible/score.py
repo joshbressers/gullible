@@ -44,10 +44,14 @@ class Score:
         "Add a 'score' item to the list"
         self.score.append(item)
 
-    def get_cause(self):
-        "Return a object representation of the cause"
+    def __check_results(self):
+        "Ensure we've parsed the scores"
         if self.__cause is None:
             self.__walk_results()
+
+    def get_cause(self):
+        "Return a object representation of the cause"
+        self.__check_results()
 
         return self.__cause
 
@@ -67,13 +71,20 @@ class Score:
         elif FloatingPoint.score(self.score):
             self.__cause = FloatingPoint()
 
+    def pretty_print(self):
+        "Return a nice string explaining the issue"
+        self.__check_results()
+
+        return "\n\nDescription: %s\nExploitability: %s\n%s" % \
+            (self.__cause.name, self.__cause.exploitable, self.__cause.description)
+
 class Unknown:
     "Class describing an unknown crash, this is the default result."
 
     def __init__(self):
         self.name = "Unknown"
         self.exploitable = "Unknown"
-        self.description = "An unknown crash"
+        self.description = "An unknown crash was detected. It is not known if this issue is dangerous, manual inspection is required."
 
     @staticmethod
     def score(scores):
