@@ -23,3 +23,12 @@ all: $(TESTS)
 
 clean:
 	rm -f $(TESTS)
+
+test: all
+	for binary in $(TESTS) ; do \
+		target=`echo $$binary | sed 's/\.*test//g'` ; \
+		echo "" ;\
+		echo Testing $$target ; \
+		PYTHONPATH=../lib GULLIBLE_GDB=../gdb/gullible.py ../bin/gullible.sh $$binary 2>/dev/null | (grep -q "Description: $$target" && echo PASS) || echo FAIL ; \
+    done
+

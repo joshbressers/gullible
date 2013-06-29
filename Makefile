@@ -30,7 +30,7 @@ all:
 # Do nothing
 
 test:
-# Do nothing
+	cd tests && make test
 
 install: all
 		mkdir -p $(DESTDIR)$(BINDIR)
