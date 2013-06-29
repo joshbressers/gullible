@@ -52,3 +52,5 @@ Program received signal SIGFPE, Arithmetic exception.
 9       printf("%d\n", 7/0);
 DivideByZero
 
+
+You can run the test suite by running "make test".
