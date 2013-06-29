@@ -33,9 +33,12 @@ class Calculator:
         "Check the current instruction"
         instruction = self.gdb.get_instruction()
 
-        for i in self.score.scorables['instructions']:
-            if i in instruction:
-                self.score.add_item(i)
+        if instruction is None:
+            self.score.add_item("ExecuteInvalid")
+        else:
+            for i in self.score.scorables['instructions']:
+                if i in instruction:
+                    self.score.add_item(i)
 
     def __check_signal(self):
         "Check the signal gdb returned"

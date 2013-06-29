@@ -66,7 +66,9 @@ class Score:
         # Long term we want this to work so multiple tests can match, but
         # one may have a better match
 
-        if DivideByZero.score(self.score):
+        if ExecuteInvalid.score(self.score):
+            self.__cause = ExecuteInvalid()
+        elif DivideByZero.score(self.score):
             self.__cause = DivideByZero()
         elif FloatingPoint.score(self.score):
             self.__cause = FloatingPoint()
@@ -120,6 +122,23 @@ class FloatingPoint:
         "Static method for computing the score for this test."
 
         if 'SIGFPE' in scores:
+            return True
+        else:
+            return False
+
+class ExecuteInvalid:
+    "Class describing invalid execution"
+
+    def __init__(self):
+        self.name = "ExecuteInvalid"
+        self.exploitable = "Exploitable"
+        self.description = "We're attempting to execute invalid instructions. The instructions pointer is currently pointing at a segment of memory we cannot read. This is almost certainly an exploitable flaw."
+
+    @staticmethod
+    def score(scores):
+        "Static method for computing the score for this test."
+
+        if 'ExecuteInvalid' in scores:
             return True
         else:
             return False

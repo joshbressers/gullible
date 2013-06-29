@@ -34,8 +34,15 @@ class GDB:
         self.gdb = the_gdb
 
         # Load our instructions
-        the_instructions = self.gdb.execute("disassemble $pc", to_string=True)
-        self.instructions = Instructions(the_instructions)
+        try:
+            the_instructions = self.gdb.execute("disassemble $pc", to_string=True)
+            self.instructions = Instructions(the_instructions)
+        except:
+            # Something strange is happening here, we can't disassemble the
+            # address, this likely means we're trying to execute invalid
+            # instructions. Let's set the instructions to None to denote
+            # this.
+            self.instructions = None
 
     def get_signal(self):
         "Return the signal returned by gdb"
@@ -47,9 +54,13 @@ class GDB:
             return None
 
     def get_instruction(self):
-        "Return the current instruction mnemonic"
+        """Return the current instruction mnemonic or None if we have
+        invalid execution"""
 
-        return self.instructions.get_current_instruction()
+        if self.instructions is None:
+            return None
+        else:
+            return self.instructions.get_current_instruction()
 
 class Instructions:
     "Class to store and process the disassembled instructions"
